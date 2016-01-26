@@ -19,4 +19,25 @@ Sample Output:
     3
 """
 
-pass
+import sys
+
+key, prev = '', ''
+duplicate = False
+
+for line in sys.stdin:
+    key, value = line.strip().split('\t')
+
+    if not prev:
+        pass
+    elif prev != key:
+        if not duplicate:
+            print(prev)
+        else:
+            duplicate = False
+    else:
+        duplicate = True
+
+    prev = key
+
+if not duplicate:
+    print(key)
