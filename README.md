@@ -8,7 +8,7 @@ MOOC by stepic.org
 - [x] Module 1: Introduction
 - [x] Module 2: HDFS
 - [x] Module 3: MapReduce Introduction
-- [ ] Module 4: Solving Problems with MapReduce
+- [x] Module 4: Solving Problems with MapReduce
 - [ ] Module 5: Graph Algorithms with MapReduce
 - [ ] Module 6: Pig and Hive
 - [ ] Module 7: 7NoSQL Databases: HBase and Cassandra
