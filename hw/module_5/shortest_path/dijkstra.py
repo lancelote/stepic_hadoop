@@ -35,27 +35,54 @@ Sample Output:
 """
 
 import sys
+from collections import defaultdict
 
-node_num, edge_num = None, None
-start_node, end_node = None, None
-min_weight_array = []
 
-for line in sys.stdin:
-    if not node_num:
-        node_num, edge_num = line.strip().split()
-        min_weight_array = [None]*node_num
-        nodes = {i: None for i in range(node_num)}
-    elif node_num:
-        start, end, weight = line.strip().split()
-        if start not in nodes:
-            nodes[start] = {end: weight}
+def read_data():
+    """Читаем данные"""
+    graph = defaultdict(dict)
+    start = None
+    end = None
+    edge_num = None
+    node_num = None
+
+    for line in sys.stdin:
+        if edge_num is None:
+            node_num, edge_num = map(int, line.strip().split())
+        elif edge_num:
+            from_node, to_node, weight = line.strip().split()
+            graph[from_node][to_node] = weight
+            edge_num -= 1
         else:
-            nodes[start][end] = weight
-        node_num -= 1
-    else:
-        start_node, end_node = line.strip().split()
+            start, end = line.strip().split()
+    return start, end, node_num, graph
 
-min_weight_array[start_node] = 0
 
-while min_weight_array[end_node] is not None:
-    pass
+def dijkstra():
+    """Ищем расстояние между двумя вершинами"""
+    start, end, node_num, graph = read_data()  # Загружаем данные
+
+    distances = [9999]*int(node_num)  # Список расстояний до вершин
+    distances[int(start) - 1] = 0     # Расстояние до стартовой вершины - 0
+
+    unknown_nodes = graph.copy()      # Вершины с неизвестным расстоянием
+
+    while unknown_nodes:
+        # Выбираем ближайшую вершину из непосещенных
+        nearest_node = min(unknown_nodes, key=lambda x: distances[int(x) - 1])
+
+        # Перебираем соединенные с ближайшей вершины
+        for node, weight in unknown_nodes[nearest_node].items():
+
+            # Если нашли путь короче - обновляем список расстояний
+            if distances[int(node) - 1] > distances[int(nearest_node) - 1] +\
+                    int(weight):
+                distances[int(node) - 1] = distances[int(nearest_node) - 1] +\
+                                           int(weight)
+
+        del unknown_nodes[nearest_node]  # Удаляем посещенную вершину
+
+    answer = distances[int(end) - 1]  # Расстояние до требуемой вершины
+    return answer if answer != 9999 else -1
+
+print(dijkstra())
