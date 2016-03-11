@@ -15,7 +15,7 @@ MOOC by stepic.org
 - [x] Module 6: Pig and Hive
 - [x] Module 7: NoSQL Databases: HBase and Cassandra
 - [x] Module 8: Spark
-- [ ] Module 9: YARN - MapReduce 2.0
+- [x] Module 9: YARN - MapReduce 2.0
 
 ## ToDo
 
